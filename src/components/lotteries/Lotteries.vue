@@ -15,7 +15,7 @@
           v-model="queryLottery.phone_number">
       </div>
 
-      <input type="submit" value="шалгах" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-full py-4 text-white items-center justify-center">
+      <input type="submit" value="шалгах" class="font-sans font-bold px-4 rounded cursor-pointer no-underline bg-orange hover:bg-orange-dark block w-full py-4 text-white items-center justify-center">
     </form>
 
     <hr class="border border-grey-light my-6" />
