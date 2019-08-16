@@ -39,6 +39,9 @@
 <script>
 export default {
   name: 'Lotteries',
+  created () {
+      document.title = "Сугалааны эрх шалгах";
+  },
   data () {
     return {
       queryLottery: [],
