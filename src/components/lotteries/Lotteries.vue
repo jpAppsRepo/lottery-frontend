@@ -20,8 +20,9 @@
 
     <hr class="border border-grey-light my-6" />
 
-    <ul class="list-reset mt-4">
-      <p>Нийт сугалааны тоо: {{ lotteries.length }}</p>
+    <ul class="list-reset mt-4" >
+      <p v-if="lotteries.length != 0 && requested">Нийт сугалааны тоо: {{ lotteries.length }}</p>
+      <p style="color:red;" v-if="lotteries.length == 0 && requested">Одоогоор бүртгэгдсэн сугалаа байхгүй байна.</p>
       <li class="py-4" v-for="(lottery, index) in lotteries" :key="lottery.phone_number" :lottery="lottery">
         <div class="flex items-center justify-between flex-wrap">
           <div class="flex-1 flex justify-between flex-wrap pr-4">
@@ -44,6 +45,7 @@ export default {
   },
   data () {
     return {
+      requested: null,
       queryLottery: [],
       lotteries: [],
       error: ''
@@ -55,8 +57,8 @@ export default {
     },
     getLottery () {
       this.$http.secured.get('/api/v1/lotteries/' + this.queryLottery.phone_number)
-        .then(response => { this.lotteries = response.data })
-        .catch(error => this.setError(error, 'Something went wrong'))
+        .then(response => { this.lotteries = response.data; this.requested = true })
+        .catch(error => { this.setError(error, 'Хүсэлтэд алдаа гарлаа'); this.requested = false })
     }
   }
 }
