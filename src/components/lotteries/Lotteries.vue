@@ -21,7 +21,6 @@
     <hr class="border border-grey-light my-6" />
 
     <ul class="list-reset mt-4" >
-      <router-link to="/winner">Winner</router-link>
       <p v-if="lotteries.length != 0 && requested">Нийт сугалааны тоо: {{ lotteries.length }}</p>
       <p style="color:red;" v-if="lotteries.length == 0 && requested">Одоогоор бүртгэгдсэн сугалаа байхгүй байна.</p>
       <li class="py-4" v-for="(lottery, index) in lotteries" :key="lottery.phone_number" :lottery="lottery">
