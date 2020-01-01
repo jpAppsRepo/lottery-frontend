@@ -11,6 +11,10 @@ export default {
 }
 </script>
 
+<style lang="scss">
+  @import "./assets/css/winner.css";
+</style>
+
 <style>
 #app {
   font-family: 'Avenir', Helvetica, Arial, sans-serif;
