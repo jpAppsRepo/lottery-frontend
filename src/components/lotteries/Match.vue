@@ -78,7 +78,11 @@ export default {
     match (e) {
       e.preventDefault()
       if(this.matches.length >= 5) {
-        alert('Overflow');
+        this.$swal({
+          title: 'Тохиролын дууссан байна',
+          icon: 'warning',
+          confirmButtonText: 'За'
+        });
       } else {
         const min = 1
         const max = this.lotteries.length
