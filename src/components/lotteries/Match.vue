@@ -23,9 +23,9 @@
         </div>
     </div>
     <div class="flex justify-center">
-        <div v-on:click="match" class="font-sans font-bold py-2 px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-1/4 py-4 text-white items-center justify-center">
+        <button v-on:click="match" class="font-sans font-bold py-2 px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-1/4 py-4 text-white items-center justify-center">
             Шалгаруулах
-        </div>
+        </button>
     </div>
     <hr class="border border-grey-light my-6" />
     <div class="flex justify-center">
@@ -38,7 +38,7 @@
                 </tr>
             </thead>
             <tbody>
-                <tr v-for="(lottery, index) in matches" :key="lottery.lottery_number" :lottery="lottery">
+                <tr v-for="(lottery) in matches" :key="lottery.lottery_number" :lottery="lottery">
                     <td class="border px-4 py-2">
                         <p class="block flex font-mono font-semibold flex items-center">
                             <svg class="fill-current text-indigo w-6 h-6 mr-2" viewBox="0 0 24 24" width="24" height="24"><title>record vinyl</title><path d="M23.938 10.773a11.915 11.915 0 0 0-2.333-5.944 12.118 12.118 0 0 0-1.12-1.314A11.962 11.962 0 0 0 12 0C5.373 0 0 5.373 0 12s5.373 12 12 12 12-5.373 12-12c0-.414-.021-.823-.062-1.227zM12 16a4 4 0 1 1 0-8 4 4 0 0 1 0 8zm0-5a1 1 0 1 0 0 2 1 1 0 0 0 0-2z" ></path></svg>
@@ -59,7 +59,7 @@ export default {
   name: 'Match',
   created () {
     document.title = 'Сугалааны тохирол'
-    this.getLotteries();
+    this.getLotteries()
   },
   data () {
     return {
@@ -75,25 +75,31 @@ export default {
     setError (error, text) {
       this.error = (error.response && error.response.data && error.response.data.error) || text
     },
-    match() {
+    match (e) {
+      e.preventDefault()
+      if(this.matches.length >= 5) {
+        alert('Overflow');
+      } else {
         const min = 1
         const max = this.lotteries.length
         let matched = Math.round(Math.random() * (max - min) + min) - 1
         console.log('matched: ', this.lotteries[matched])
+        this.digitArr = ('' + this.lotteries[matched]).split('')
         this.setMatch(this.lotteries[matched])
         this.lotteries.splice(matched, 1)
+      }
     },
-    setMatch(lotteryNumber) {
-        this.matches.push({
-            lottery_number: lotteryNumber,
-            fullname: 'Х.Хэрэглэгч',
-            phone_number: 12345678
-        })
-        console.log(this.matches)
+    setMatch (lotteryNumber) {
+      this.matches.push({
+        lottery_number: lotteryNumber,
+        fullname: 'Х.Хэрэглэгч',
+        phone_number: 12345678
+      })
+      console.log(this.matches)
     },
     getLotteries () {
-        this.lotteries = [123456, 234567, 345678, 456789, 567890, 987654, 876543];
-        this.requested = true
+      this.lotteries = [123456, 234567, 345678, 456789, 567890, 987654, 876543]
+      this.requested = true
     }
   }
 }
