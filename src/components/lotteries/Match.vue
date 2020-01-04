@@ -79,7 +79,7 @@ export default {
       e.preventDefault()
       if(this.matches.length >= 5) {
         this.$swal({
-          title: 'Тохиролын дууссан байна',
+          title: 'Тохиролын тоо дууссан байна',
           icon: 'warning',
           confirmButtonText: 'За'
         });
