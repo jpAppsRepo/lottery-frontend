@@ -117,6 +117,7 @@
 .num p {
   width: auto;
   display: table;
-  font-size: 205px;
+  font-size: 185px;
   line-height: 165px;
+  font-weight: bold;
 }
