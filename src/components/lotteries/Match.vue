@@ -93,28 +93,6 @@
         </div>
       </div>
     </div>
-    
-    <hr class="border border-grey-light my-6" />
-    <div class="flex flex-row justify-center my-6">
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[0]}}
-        </div>
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[1]}}
-        </div>
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[2]}}
-        </div>
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[3]}}
-        </div>
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[4]}}
-        </div>
-        <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
-            {{digitArr[5]}}
-        </div>
-    </div>
     <div class="flex justify-center">
         <button v-on:click="match" class="font-sans font-bold py-2 px-4 rounded cursor-pointer no-underline bg-green hover:bg-green-dark block w-1/4 py-4 text-white items-center justify-center">
             Шалгаруулах
@@ -186,29 +164,29 @@ export default {
       }
       else if (this.matches.length === 4) {
         this.digitArr = ('' + this.cheat.lottery_number).split('')
-        await this.setMatch(this.cheat)
-        this.digitArr.forEach((item, index) => {
+        await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
           TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
             y: - parent.querySelector('.num-' + item).offsetTop
           })
         })
+        await this.setMatch(this.cheat)
       } else {
         const min = 1
         const max = this.lotteries.length
         let matched = Math.round(Math.random() * (max - min) + min) - 1
         console.log(matched)
         this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
-        await this.setMatch(this.lotteries[matched])
-        this.lotteries.splice(matched, 1)
-        this.digitArr.forEach((item, index) => {
+        await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
           TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
             y: - parent.querySelector('.num-' + item).offsetTop
           })
         })
+        await this.setMatch(this.lotteries[matched])
+        this.lotteries.splice(matched, 1)
       }
     },
     setMatch (lottery) {
