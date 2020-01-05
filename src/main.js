@@ -4,15 +4,15 @@ import Vue from 'vue'
 import App from './App'
 import router from './router'
 import VueAxios from 'vue-axios'
-import VueSweetalert2 from 'vue-sweetalert2';
+import VueSweetalert2 from 'vue-sweetalert2'
 import { plainAxiosInstance, securedAxiosInstance } from './backend/axios'
 
-import 'sweetalert2/dist/sweetalert2.min.css';
+import 'sweetalert2/dist/sweetalert2.min.css'
 import './main.css'
 
 Vue.config.productionTip = false
 
-Vue.use(VueSweetalert2);
+Vue.use(VueSweetalert2)
 Vue.use(VueAxios, {
   secured: securedAxiosInstance,
   plain: plainAxiosInstance

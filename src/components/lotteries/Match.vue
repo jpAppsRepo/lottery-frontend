@@ -77,12 +77,12 @@ export default {
     },
     match (e) {
       e.preventDefault()
-      if(this.matches.length >= 5) {
+      if (this.matches.length >= 5) {
         this.$swal({
           title: 'Тохиролын тоо дууссан байна',
           icon: 'warning',
           confirmButtonText: 'За'
-        });
+        })
       } else {
         const min = 1
         const max = this.lotteries.length
