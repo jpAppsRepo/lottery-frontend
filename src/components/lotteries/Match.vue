@@ -67,6 +67,7 @@ export default {
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
       matches: [],
+      item: [],
       is_final: false,
       error: ''
     }
@@ -87,23 +88,27 @@ export default {
         const min = 1
         const max = this.lotteries.length
         let matched = Math.round(Math.random() * (max - min) + min) - 1
-        console.log('matched: ', this.lotteries[matched])
-        this.digitArr = ('' + this.lotteries[matched]).split('')
+        console.log(matched)
+        this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
         this.setMatch(this.lotteries[matched])
         this.lotteries.splice(matched, 1)
       }
     },
-    setMatch (lotteryNumber) {
+    setMatch (lottery) {
+      let item = this.items.find(it => it.phone_number === lottery.phone_number);
       this.matches.push({
-        lottery_number: lotteryNumber,
-        fullname: 'Х.Хэрэглэгч',
-        phone_number: 12345678
-      })
-      console.log(this.matches)
+        lottery_number: lottery.lottery_number,
+        phone_number: lottery.phone_number,
+        fullname: item.surname.concat('.', item.name)
+      });
     },
     getLotteries () {
-      this.lotteries = [123456, 234567, 345678, 456789, 567890, 987654, 876543]
-      this.requested = true
+      this.$http.secured.get('/api/v1/lotteries')
+        .then(response => { this.lotteries = response.data; this.requested = true })
+        .catch(error => { this.setError(error, 'Хүсэлтэд алдаа гарлаа'); this.requested = false })
+      this.$http.secured.get('/api/v1/items')
+        .then(response => { this.items = response.data; this.requested = true })
+        .catch(error => { this.setError(error, 'Хүсэлтэд алдаа гарлаа'); this.requested = false })
     }
   }
 }
