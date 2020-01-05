@@ -83,7 +83,7 @@ export default {
     setError (error, text) {
       this.error = (error.response && error.response.data && error.response.data.error) || text
     },
-    match (e) {
+    async match (e) {
       e.preventDefault()
       if (this.matches.length >= 5) {
         this.$swal({
@@ -97,12 +97,13 @@ export default {
         let matched = Math.round(Math.random() * (max - min) + min) - 1
         console.log(matched)
         this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
-        this.setMatch(this.lotteries[matched])
+        await this.setMatch(this.lotteries[matched])
         this.lotteries.splice(matched, 1)
       }
     },
     setMatch (lottery) {
       let item = this.items.find(it => it.phone_number === lottery.phone_number)
+      console.log(item)
       this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number,
