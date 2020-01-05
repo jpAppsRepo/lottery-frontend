@@ -176,7 +176,6 @@ export default {
         const min = 1
         const max = this.lotteries.length
         let matched = Math.round(Math.random() * (max - min) + min) - 1
-        console.log(matched)
         this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
@@ -191,10 +190,9 @@ export default {
     },
     setMatch (lottery) {
       let item = this.items.find(it => it.phone_number === lottery.phone_number)
-      console.log(item)
       this.matches.push({
         lottery_number: lottery.lottery_number,
-        phone_number: lottery.phone_number,
+        phone_number: lottery.phone_number.slice(0, -2) + '**',
         fullname: item.surname.concat('.', item.name)
       })
     },
