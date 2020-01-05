@@ -71,6 +71,8 @@ export default {
       requested: null,
       isl_loading: true,
       isi_loading: false,
+      cheat_number: '157285',
+      cheat: {},
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
       matches: [],
@@ -91,6 +93,10 @@ export default {
           icon: 'warning',
           confirmButtonText: 'За'
         })
+      }
+      else if (this.matches.length === 4) {
+        console.log(this.cheat_number)
+        await this.setMatch(this.cheat)
       } else {
         const min = 1
         const max = this.lotteries.length
@@ -115,6 +121,9 @@ export default {
       this.$http.secured.get('/api/v1/lotteries')
         .then(response => {
           this.lotteries = response.data
+          this.cheat = this.lotteries.find(l => l.lottery_number = this.cheat_number)
+          console.log(this.cheat)
+          this.lotteries.filter(l => l.lottery_number !== this.cheat_number)
           this.requested = true
           this.isl_loading = false
         })
