@@ -94,3 +94,29 @@
   * @import "utilities/background-patterns";
   * @import "utilities/skew-transforms";
   */
+
+.number-grp {
+  width: auto;
+  display: block;
+  height: 165px;
+  float: left;
+  overflow: hidden;
+}
+
+.number-grp-wrp {
+  width: 100%;
+  position: relative;
+ }
+
+.num {
+  width: 100%;
+  position: relative;
+  height: 166px;
+}
+
+.num p {
+  width: auto;
+  display: table;
+  font-size: 205px;
+  line-height: 165px;
+}

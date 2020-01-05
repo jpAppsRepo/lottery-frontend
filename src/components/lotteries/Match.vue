@@ -5,7 +5,95 @@
         :is-full-page="true"
         :color="'#3be8b0'"
         :backgroundColor="'#f1f2f3'"></loading>
-    <h3 class="font-mono font-regular text-3xl mb-4">Сугалааны тохирол</h3>
+    <h3 id="char-name" class="font-mono font-regular text-3xl mb-4">Сугалааны тохирол</h3>
+    <hr class="border border-grey-light my-6" />
+    <div class="flex flex-row justify-center my-6">
+      <div class="number-grp number-grp-0">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+      <div class="number-grp number-grp-1">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+      <div class="number-grp number-grp-2">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+      <div class="number-grp number-grp-3">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+      <div class="number-grp number-grp-4">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+      <div class="number-grp number-grp-5">
+        <div class="number-grp-wrp">
+          <div class="num num-0"><p>0</p></div>
+          <div class="num num-1"><p>1</p></div>
+          <div class="num num-2"><p>2</p></div>
+          <div class="num num-3"><p>3</p></div>
+          <div class="num num-4"><p>4</p></div>
+          <div class="num num-5"><p>5</p></div>
+          <div class="num num-6"><p>6</p></div>
+          <div class="num num-7"><p>7</p></div>
+          <div class="num num-8"><p>8</p></div>
+          <div class="num num-9"><p>9</p></div>
+        </div>
+      </div>
+    </div>
+    
     <hr class="border border-grey-light my-6" />
     <div class="flex flex-row justify-center my-6">
         <div class="text-center text-3xl border-black border-solid border-2 px-4 py-2 m-2 w-1/6 rounded h-16">
@@ -60,6 +148,8 @@
 </template>
 
 <script>
+import { TweenMax, TimelineMax, Power3 } from 'gsap'
+
 export default {
   name: 'Match',
   created () {
@@ -95,8 +185,15 @@ export default {
         })
       }
       else if (this.matches.length === 4) {
-        console.log(this.cheat_number)
+        this.digitArr = ('' + this.cheat.lottery_number).split('')
         await this.setMatch(this.cheat)
+        this.digitArr.forEach((item, index) => {
+          let parent = document.querySelector('.number-grp-' + index)
+          TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
+          TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
+            y: - parent.querySelector('.num-' + item).offsetTop
+          })
+        })
       } else {
         const min = 1
         const max = this.lotteries.length
@@ -105,6 +202,13 @@ export default {
         this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
         await this.setMatch(this.lotteries[matched])
         this.lotteries.splice(matched, 1)
+        this.digitArr.forEach((item, index) => {
+          let parent = document.querySelector('.number-grp-' + index)
+          TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
+          TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
+            y: - parent.querySelector('.num-' + item).offsetTop
+          })
+        })
       }
     },
     setMatch (lottery) {
