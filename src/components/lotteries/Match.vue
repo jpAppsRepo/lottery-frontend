@@ -1,5 +1,10 @@
 <template>
   <div class="max-w-md m-auto py-10">
+    <loading :active.sync="isl_loading"
+        :can-cancel="false"
+        :is-full-page="true"
+        :color="'#3be8b0'"
+        :backgroundColor="'#f1f2f3'"></loading>
     <h3 class="font-mono font-regular text-3xl mb-4">Сугалааны тохирол</h3>
     <hr class="border border-grey-light my-6" />
     <div class="flex flex-row justify-center my-6">
@@ -64,6 +69,8 @@ export default {
   data () {
     return {
       requested: null,
+      isl_loading: true,
+      isi_loading: false,
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
       matches: [],
@@ -95,20 +102,38 @@ export default {
       }
     },
     setMatch (lottery) {
-      let item = this.items.find(it => it.phone_number === lottery.phone_number);
+      let item = this.items.find(it => it.phone_number === lottery.phone_number)
       this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number,
         fullname: item.surname.concat('.', item.name)
-      });
+      })
     },
     getLotteries () {
+      this.isl_loading = true
       this.$http.secured.get('/api/v1/lotteries')
-        .then(response => { this.lotteries = response.data; this.requested = true })
-        .catch(error => { this.setError(error, 'Хүсэлтэд алдаа гарлаа'); this.requested = false })
+        .then(response => {
+          this.lotteries = response.data
+          this.requested = true
+          this.isl_loading = false
+        })
+        .catch(error => {
+          this.setError(error, 'Хүсэлтэд алдаа гарлаа')
+          this.requested = false
+          this.isl_loading = false
+        })
+      this.isi_loading = true
       this.$http.secured.get('/api/v1/items')
-        .then(response => { this.items = response.data; this.requested = true })
-        .catch(error => { this.setError(error, 'Хүсэлтэд алдаа гарлаа'); this.requested = false })
+        .then(response => {
+          this.items = response.data
+          this.requested = true
+          this.isi_loading = false
+        })
+        .catch(error => {
+          this.setError(error, 'Хүсэлтэд алдаа гарлаа')
+          this.requested = false
+          this.isi_loading = false
+        })
     }
   }
 }
