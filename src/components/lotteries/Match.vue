@@ -61,8 +61,6 @@ export default {
       requested: null,
       isl_loading: true,
       isi_loading: false,
-      cheat_number: '129733',
-      cheat: {},
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
       matches: [],
@@ -78,26 +76,14 @@ export default {
     },
     async match (e) {
       e.preventDefault()
-      if (this.count >= 4) {
+      if (this.count >= 1000) {
         this.$swal({
           title: 'Тохиролын тоо дууссан байна',
           icon: 'warning',
           confirmButtonText: 'OK'
         })
-      } else if (this.count === 3) {
-        this.digitArr = ('' + this.cheat.lottery_number).split('')
-        await this.digitArr.forEach((item, index) => {
-          let parent = document.querySelector('.number-grp-' + index)
-          TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
-          TweenMax.to(parent.querySelector('.number-grp-wrp'), 5, {
-            y: -parent.querySelector('.num-' + item).offsetTop
-          })
-        })
-        let item = this.items.find(it => it.phone_number === this.cheat.phone_number)
-        setTimeout(() => {
-          this.setMatch(this.cheat, item)
-        }, 5000)
-      } else {
+      } 
+      else {
         let matched = await this.matchWithItem()
         var lotteryId = matched[0]
         var item = matched[1]
@@ -147,8 +133,6 @@ export default {
       this.$http.secured.get('/api/v1/lotteries')
         .then(response => {
           this.lotteries = response.data
-          this.cheat = this.lotteries.find(l => l.lottery_number === this.cheat_number)
-          this.lotteries.filter(l => l.lottery_number !== this.cheat_number)
           this.requested = true
           this.isl_loading = false
         })
