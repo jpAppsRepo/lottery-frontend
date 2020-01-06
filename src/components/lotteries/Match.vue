@@ -20,11 +20,11 @@
         </button>
     </div>
     <hr class="border border-grey-light my-6" />
-    <div class="flex justify-center">
+    <div class="flex justify-center match-table">
         <table class="border-separate border-2 w-full">
             <thead>
                 <tr>
-                    <th class="border px-4 py-2">Сугалааны дугаар</th>
+                    <th class="border px-4 py-2">Азтаны дугаар</th>
                     <th class="border px-4 py-2">Хэрэглэгч</th>
                     <th class="border px-4 py-2">Утас</th>
                 </tr>
@@ -88,12 +88,14 @@ export default {
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
-          TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
+          TweenMax.to(parent.querySelector('.number-grp-wrp'), 5, {
             y: -parent.querySelector('.num-' + item).offsetTop
           })
         })
         let item = this.items.find(it => it.phone_number === this.cheat.phone_number)
-        await this.setMatch(this.cheat, item)
+        setTimeout(() => {
+          this.setMatch(this.cheat, item)
+        }, 5000)
       } else {
         let matched = await this.matchWithItem()
         this.digitArr = ('' + this.lotteries[matched[0]].lottery_number).split('')
@@ -104,21 +106,23 @@ export default {
             y: -parent.querySelector('.num-' + item).offsetTop
           })
         })
-        await this.setMatch(this.lotteries[matched[0]], matched[1])
+        setTimeout(() => {
+          this.setMatch(this.lotteries[matched[0]], matched[1])
+        }, 5000)
         this.lotteries.splice(matched[0], 1)
       }
     },
     setMatch (lottery, item) {
-      // this.matches.push({
-      //   lottery_number: lottery.lottery_number,
-      //   phone_number: lottery.phone_number.slice(0, -2) + '**',
-      //   fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
-      // })
-      this.matches = [{
+      this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number.slice(0, -2) + '**',
         fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
-      }]
+      })
+      // this.matches = [{
+      //   lottery_number: lottery.lottery_number,
+      //   phone_number: lottery.phone_number.slice(0, -2) + '**',
+      //   fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
+      // }]
       this.count += 1
     },
     matchWithItem () {
