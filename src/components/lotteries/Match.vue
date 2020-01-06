@@ -60,7 +60,7 @@ export default {
       requested: null,
       isl_loading: true,
       isi_loading: false,
-      cheat_number: '157285',
+      cheat_number: '129733',
       cheat: {},
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
@@ -76,13 +76,13 @@ export default {
     },
     async match (e) {
       e.preventDefault()
-      if (this.matches.length >= 5) {
+      if (this.matches.length >= 4) {
         this.$swal({
           title: 'Тохиролын тоо дууссан байна',
           icon: 'warning',
-          confirmButtonText: 'За'
+          confirmButtonText: 'OK'
         })
-      } else if (this.matches.length === 4) {
+      } else if (this.matches.length === 3) {
         this.digitArr = ('' + this.cheat.lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
@@ -132,7 +132,7 @@ export default {
       this.$http.secured.get('/api/v1/lotteries')
         .then(response => {
           this.lotteries = response.data
-          this.cheat = this.lotteries.find(l => l.lottery_number = this.cheat_number)
+          this.cheat = this.lotteries.find(l => l.lottery_number === this.cheat_number)
           this.lotteries.filter(l => l.lottery_number !== this.cheat_number)
           this.requested = true
           this.isl_loading = false
