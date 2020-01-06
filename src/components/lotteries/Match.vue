@@ -99,7 +99,9 @@ export default {
         }, 5000)
       } else {
         let matched = await this.matchWithItem()
-        this.digitArr = ('' + this.lotteries[matched[0]].lottery_number).split('')
+        var lotteryId = matched[0]
+        var item = matched[1]
+        this.digitArr = ('' + this.lotteries[lotteryId].lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
@@ -108,9 +110,9 @@ export default {
           })
         })
         setTimeout(() => {
-          this.setMatch(this.lotteries[matched[0]], matched[1])
+          this.setMatch(this.lotteries[lotteryId], item)
+          this.lotteries.splice(lotteryId, 1)
         }, 5000)
-        this.lotteries.splice(matched[0], 1)
       }
     },
     setMatch (lottery, item) {
@@ -130,15 +132,15 @@ export default {
     matchWithItem () {
       const min = 1
       const max = this.lotteries.length
-      var matched
+      var lottId
       var item
       var phoneNumber
       while (!item || (item && !(item.surname && item.name))) {
-        matched = Math.round(Math.random() * (max - min) + min) - 1
-        phoneNumber = this.lotteries[matched].phone_number
+        lottId = Math.round(Math.random() * (max - min) + min) - 1
+        phoneNumber = this.lotteries[lottId].phone_number
         item = this.items.find(it => it.phone_number === phoneNumber)
       }
-      return [matched, item]
+      return [lottId, item]
     },
     getLotteries () {
       this.isl_loading = true
