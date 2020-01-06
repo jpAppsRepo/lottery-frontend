@@ -48,6 +48,7 @@
 
 <script>
 import { TweenMax } from 'gsap'
+const $ = window.jQuery = require('jquery')
 
 export default {
   name: 'Match',
@@ -124,6 +125,7 @@ export default {
       //   fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
       // }]
       this.count += 1
+      $('.match-table').animate({ height: this.count * 42 + 42 + 'px' })
     },
     matchWithItem () {
       const min = 1
