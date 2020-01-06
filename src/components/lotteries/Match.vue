@@ -65,6 +65,7 @@ export default {
       digitArr: [null, null, null, null, null, null],
       lotteries: [],
       matches: [],
+      count: 0,
       item: [],
       is_final: false,
       error: ''
@@ -76,13 +77,13 @@ export default {
     },
     async match (e) {
       e.preventDefault()
-      if (this.matches.length >= 4) {
+      if (this.count >= 4) {
         this.$swal({
           title: 'Тохиролын тоо дууссан байна',
           icon: 'warning',
           confirmButtonText: 'OK'
         })
-      } else if (this.matches.length === 3) {
+      } else if (this.count === 3) {
         this.digitArr = ('' + this.cheat.lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
@@ -99,7 +100,7 @@ export default {
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
-          TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
+          TweenMax.to(parent.querySelector('.number-grp-wrp'), 5, {
             y: -parent.querySelector('.num-' + item).offsetTop
           })
         })
@@ -108,11 +109,17 @@ export default {
       }
     },
     setMatch (lottery, item) {
-      this.matches.push({
+      // this.matches.push({
+      //   lottery_number: lottery.lottery_number,
+      //   phone_number: lottery.phone_number.slice(0, -2) + '**',
+      //   fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
+      // })
+      this.matches = [{
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number.slice(0, -2) + '**',
         fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
-      })
+      }]
+      this.count += 1
     },
     matchWithItem () {
       const min = 1
