@@ -82,8 +82,7 @@ export default {
           icon: 'warning',
           confirmButtonText: 'OK'
         })
-      } 
-      else {
+      } else {
         let matched = await this.matchWithItem()
         var lotteryId = matched[0]
         var item = matched[1]
