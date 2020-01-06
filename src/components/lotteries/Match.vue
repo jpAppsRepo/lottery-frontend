@@ -191,7 +191,7 @@ export default {
       this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number.slice(0, -2) + '**',
-        fullname: item.surname.concat('.', item.name)
+        fullname: item.surname.slice(0,1).concat('.', item.name)
       })
     },
     matchWithItem () {
