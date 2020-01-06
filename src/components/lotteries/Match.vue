@@ -47,7 +47,7 @@
 </template>
 
 <script>
-import { TweenMax, TimelineMax, Power3 } from 'gsap'
+import { TweenMax } from 'gsap'
 
 export default {
   name: 'Match',
@@ -82,26 +82,25 @@ export default {
           icon: 'warning',
           confirmButtonText: 'За'
         })
-      }
-      else if (this.matches.length === 4) {
+      } else if (this.matches.length === 4) {
         this.digitArr = ('' + this.cheat.lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
           TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
-            y: - parent.querySelector('.num-' + item).offsetTop
+            y: -parent.querySelector('.num-' + item).offsetTop
           })
         })
         let item = this.items.find(it => it.phone_number === this.cheat.phone_number)
         await this.setMatch(this.cheat, item)
       } else {
-        let matched = await this.matchWithItem();
+        let matched = await this.matchWithItem()
         this.digitArr = ('' + this.lotteries[matched[0]].lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
           TweenMax.to(parent.querySelector('.number-grp-wrp'), 1, {
-            y: - parent.querySelector('.num-' + item).offsetTop
+            y: -parent.querySelector('.num-' + item).offsetTop
           })
         })
         await this.setMatch(this.lotteries[matched[0]], matched[1])
@@ -112,7 +111,7 @@ export default {
       this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number.slice(0, -2) + '**',
-        fullname: item.surname.slice(0,1).concat('.', item.name)
+        fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
       })
     },
     matchWithItem () {
@@ -120,13 +119,13 @@ export default {
       const max = this.lotteries.length
       var matched
       var item
-      var phone_number
+      var phoneNumber
       while (!item) {
         matched = Math.round(Math.random() * (max - min) + min) - 1
-        phone_number = this.lotteries[matched].phone_number;
-        item = this.items.find(it => it.phone_number === phone_number)
+        phoneNumber = this.lotteries[matched].phone_number
+        item = this.items.find(it => it.phone_number === phoneNumber)
       }
-      return [matched, item];
+      return [matched, item]
     },
     getLotteries () {
       this.isl_loading = true
