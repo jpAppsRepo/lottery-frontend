@@ -8,88 +8,9 @@
     <h3 id="char-name" class="font-mono font-regular text-3xl mb-4">Сугалааны тохирол</h3>
     <hr class="border border-grey-light my-6" />
     <div class="flex flex-row justify-center my-6">
-      <div class="number-grp number-grp-0">
+      <div v-for="(p, i) in [...Array(6)]" :key="i" :p="p" :class="['number-grp number-grp-' + i]">
         <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
-        </div>
-      </div>
-      <div class="number-grp number-grp-1">
-        <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
-        </div>
-      </div>
-      <div class="number-grp number-grp-2">
-        <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
-        </div>
-      </div>
-      <div class="number-grp number-grp-3">
-        <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
-        </div>
-      </div>
-      <div class="number-grp number-grp-4">
-        <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
-        </div>
-      </div>
-      <div class="number-grp number-grp-5">
-        <div class="number-grp-wrp">
-          <div class="num num-0"><p>0</p></div>
-          <div class="num num-1"><p>1</p></div>
-          <div class="num num-2"><p>2</p></div>
-          <div class="num num-3"><p>3</p></div>
-          <div class="num num-4"><p>4</p></div>
-          <div class="num num-5"><p>5</p></div>
-          <div class="num num-6"><p>6</p></div>
-          <div class="num num-7"><p>7</p></div>
-          <div class="num num-8"><p>8</p></div>
-          <div class="num num-9"><p>9</p></div>
+          <div v-for="(c, j) in [...Array(10)]" :key="j" :c="c" :class="['num num-' + j]"><p>{{j}}</p></div>
         </div>
       </div>
     </div>
