@@ -120,7 +120,7 @@ export default {
       var matched
       var item
       var phoneNumber
-      while (!item) {
+      while (!item || (item && !(item.surname && item.name))) {
         matched = Math.round(Math.random() * (max - min) + min) - 1
         phoneNumber = this.lotteries[matched].phone_number
         item = this.items.find(it => it.phone_number === phoneNumber)
