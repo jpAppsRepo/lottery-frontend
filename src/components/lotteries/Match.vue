@@ -171,12 +171,11 @@ export default {
             y: - parent.querySelector('.num-' + item).offsetTop
           })
         })
-        await this.setMatch(this.cheat)
+        let item = this.items.find(it => it.phone_number === this.cheat.phone_number)
+        await this.setMatch(this.cheat, item)
       } else {
-        const min = 1
-        const max = this.lotteries.length
-        let matched = Math.round(Math.random() * (max - min) + min) - 1
-        this.digitArr = ('' + this.lotteries[matched].lottery_number).split('')
+        let matched = await this.matchWithItem();
+        this.digitArr = ('' + this.lotteries[matched[0]].lottery_number).split('')
         await this.digitArr.forEach((item, index) => {
           let parent = document.querySelector('.number-grp-' + index)
           TweenMax.killTweensOf(parent.querySelector('.number-grp-wrp'))
@@ -184,17 +183,29 @@ export default {
             y: - parent.querySelector('.num-' + item).offsetTop
           })
         })
-        await this.setMatch(this.lotteries[matched])
-        this.lotteries.splice(matched, 1)
+        await this.setMatch(this.lotteries[matched[0]], matched[1])
+        this.lotteries.splice(matched[0], 1)
       }
     },
-    setMatch (lottery) {
-      let item = this.items.find(it => it.phone_number === lottery.phone_number)
+    setMatch (lottery, item) {
       this.matches.push({
         lottery_number: lottery.lottery_number,
         phone_number: lottery.phone_number.slice(0, -2) + '**',
         fullname: item.surname.concat('.', item.name)
       })
+    },
+    matchWithItem () {
+      const min = 1
+      const max = this.lotteries.length
+      var matched
+      var item
+      var phone_number
+      while (!item) {
+        matched = Math.round(Math.random() * (max - min) + min) - 1
+        phone_number = this.lotteries[matched].phone_number;
+        item = this.items.find(it => it.phone_number === phone_number)
+      }
+      return [matched, item];
     },
     getLotteries () {
       this.isl_loading = true
@@ -202,7 +213,6 @@ export default {
         .then(response => {
           this.lotteries = response.data
           this.cheat = this.lotteries.find(l => l.lottery_number = this.cheat_number)
-          console.log(this.cheat)
           this.lotteries.filter(l => l.lottery_number !== this.cheat_number)
           this.requested = true
           this.isl_loading = false
