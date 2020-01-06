@@ -5,7 +5,7 @@
         :is-full-page="true"
         :color="'#3be8b0'"
         :backgroundColor="'#f1f2f3'"></loading>
-    <h3 id="char-name" class="font-mono font-regular text-3xl mb-4">Сугалааны тохирол</h3>
+    <h3 id="char-name" class="font-mono font-regular text-3xl mb-4">Азтаны тохирол</h3>
     <hr class="border border-grey-light my-6" />
     <div class="flex flex-row justify-center my-6">
       <div v-for="(p, i) in [...Array(6)]" :key="i" :p="p" :class="['number-grp number-grp-' + i]">
@@ -116,16 +116,16 @@ export default {
       }
     },
     setMatch (lottery, item) {
-      this.matches.push({
-        lottery_number: lottery.lottery_number,
-        phone_number: lottery.phone_number.slice(0, -2) + '**',
-        fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
-      })
-      // this.matches = [{
+      // this.matches.push({
       //   lottery_number: lottery.lottery_number,
       //   phone_number: lottery.phone_number.slice(0, -2) + '**',
       //   fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
-      // }]
+      // })
+      this.matches = [{
+        lottery_number: lottery.lottery_number,
+        phone_number: lottery.phone_number.slice(0, -2) + '**',
+        fullname: item.surname ? item.surname.slice(0, 1).concat('.', item.name) : item.surname
+      }]
       this.count += 1
       $('.match-table').animate({ height: this.count * 42 + 42 + 'px' })
     },
